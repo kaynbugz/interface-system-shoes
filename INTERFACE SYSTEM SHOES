@@ -1,0 +1,214 @@
+package javaapplication3;
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class NewMain2 {
+
+    public static void main(String[] args) {
+        Scanner x = new Scanner(System.in);
+
+        String[] Brands = {"NIKE", "ADIDAS", "PUMA", "NEW BALANCE", "CONVERSE"};
+
+        ArrayList<String[]> brandShoesList = new ArrayList<>();
+        ArrayList<int[]> brandPricesList = new ArrayList<>();
+
+        brandShoesList.add(new String[]{"NIKE AF 1", "NIKE AIR MAX 90", "NIKE BLAZER MID", "NIKE DUNK LOW", "NIKE REACT ELEMENT 55"});
+        brandPricesList.add(new int[]{100, 200, 300, 400, 500});
+
+        brandShoesList.add(new String[]{"ADIDAS ULTRABOOST", "ADIDAS SUPERSTAR", "ADIDAS NMD R1", "ADIDAS STAN SMITH", "ADIDAS YEEZY BOOST 350"});
+        brandPricesList.add(new int[]{100, 200, 300, 400, 500});
+
+        brandShoesList.add(new String[]{"PUMA SUEDE CLASSIC", "PUMA RS-X", "PUMA CALI", "PUMA FUTURE RIDER", "PUMA IGNITE"});
+        brandPricesList.add(new int[]{100, 200, 300, 400, 500});
+
+        brandShoesList.add(new String[]{"NEW BALANCE 574", "NEW BALANCE 990V5", "NEW BALANCE 327", "NEW BALANCE 997H", "NEW BALANCE FRESH FOAM 1080V11"});
+        brandPricesList.add(new int[]{100, 200, 300, 400, 500});
+
+        brandShoesList.add(new String[]{"CONVERSE CHUCK TAYLOR ALL STAR", "CONVERSE ONE STAR", "CONVERSE JACK PURCELL", "CONVERSE CHUCK 70", "CONVERSE RUN STAR HIKE"});
+        brandPricesList.add(new int[]{100, 200, 300, 400, 500});
+
+        ArrayList<String> ShoesName = new ArrayList<>();
+        ArrayList<Integer> ShoesTotal = new ArrayList<>();
+
+        System.out.println("WELCOME TO THE SHOES STORE!!!!!!!!!!!!");
+
+        while (true) {
+            System.out.println("1. AVAILABLE BRANDS ");
+            System.out.println("2. SOLD OF SHOES BRANDS");
+            System.out.println("3. ADD BRANDS SHOES");
+            System.out.println("4. REMOVE BRANDS SHOES");
+            System.out.println("5. EXIT THE SYSTEM");
+            System.out.print("Enter your choice: ");
+            int choiceuser = x.nextInt();
+
+            if (choiceuser == 1) {
+                while (true) { 
+                    for (int i = 0; i < Brands.length; i++) {
+                        System.out.println((i + 1) + " > " + Brands[i]);
+                    }
+                    System.out.print("Enter a brand you want: ");
+                    int inputb = x.nextInt();
+
+                    if (inputb >= 1 && inputb <= Brands.length) {
+                        String[] selectedShoes = brandShoesList.get(inputb - 1);
+                        int[] selectedPrices = brandPricesList.get(inputb - 1);
+
+                        for (int i = 0; i < selectedShoes.length; i++) {
+                            System.out.println((i + 1) + " > " + selectedShoes[i]);
+                        }
+
+                        System.out.print("Enter a shoe: ");
+                        int inpshoes = x.nextInt();
+                        x.nextLine();
+
+                        if (inpshoes >= 1 && inpshoes <= selectedShoes.length) {
+                            System.out.println("You chose " + selectedShoes[inpshoes - 1]);
+                            System.out.println("PRICE: " + selectedPrices[inpshoes - 1]);
+
+                            System.out.print("ADD TO CART THIS SHOES? > ");
+                            String uadd = x.nextLine();
+
+                            if (uadd.equalsIgnoreCase("YES")) {
+                                ShoesName.add(selectedShoes[inpshoes - 1]);
+                                ShoesTotal.add(selectedPrices[inpshoes - 1]);
+                                System.out.println(selectedShoes[inpshoes - 1] + " has been added to your cart");
+                            } else {
+                                System.out.println("Shoe not added to the cart");
+                            }
+
+                            System.out.print("Do you want to choose again? YES/NO > ");
+                            String useri = x.nextLine();
+                            if (useri.equalsIgnoreCase("YES")) {
+                                continue;
+                            } else {
+                                break; 
+                            }
+                        }
+                    } else {
+                        System.out.println("Invalid brand choice.");
+                    }
+                }
+
+                int totalprice = 0;
+                System.out.println("The items in your cart: ");
+                for (int i = 0; i < ShoesName.size(); i++) {
+                    System.out.println("> " + ShoesName.get(i) + " PHP > " + ShoesTotal.get(i));
+                    totalprice += ShoesTotal.get(i);
+                }
+                System.out.println("THE TOTAL OF ALL ITEMS > " + totalprice);
+                System.out.println("Do you want to buy all items?? YES/NO ");
+                String uitems = x.next();
+                if (uitems.equalsIgnoreCase("YES")) {
+                    System.out.println("Enter your money to pay: ");
+                    int pmoney = x.nextInt();
+                    if (pmoney >= totalprice) {
+                        System.out.println("YOUR CASH: " + pmoney);
+                        System.out.println("TOTAL OF ITEMS: " + totalprice);
+                        int exchange = pmoney - totalprice;
+                        System.out.println("EXCHANGE: " + exchange);
+                        System.out.println("You successfully bought all items!");
+                    } else {
+                        System.out.println("Not enough money.");
+                    }
+                }
+            }
+            else if (choiceuser == 2){
+                System.out.println("SOLD OUT ITEMS!");
+                for (int i = 0; i < ShoesName.size(); i++){
+                        System.out.println("> " + ShoesName.get(i) + " SOLD AT PHP > " + ShoesTotal.get(i));
+              }
+            }
+            else if (choiceuser == 3) {
+                System.out.println("ADDING NEW BRANDS OF SHOES!");
+
+                while (true) {
+                    System.out.print("Enter the brand of the new shoe: ");
+                    String newBrand = x.next();
+
+                    String[] newBrands = new String[Brands.length + 1];
+
+                    for (int i = 0; i < Brands.length; i++) {
+                        newBrands[i] = Brands[i];
+                    }
+
+                    newBrands[Brands.length] = newBrand;
+                    Brands = newBrands;
+
+                    System.out.println("Updated list of brands:");
+                    for (int i = 0; i < Brands.length; i++) {
+                        System.out.println((i + 1) + " > " + Brands[i]);
+                    }
+
+                    System.out.println("Do you want to add shoes to the brand you just added? (YES/NO)");
+                    String shoesAddedResponse = x.next();
+
+                    if (shoesAddedResponse.equalsIgnoreCase("YES")) {
+                        System.out.print("How many shoes do you want to add for " + newBrand + "? ");
+                        int numberOfShoes = x.nextInt();
+                        x.nextLine(); 
+
+                        String[] newShoes = new String[numberOfShoes];
+                        int[] newPrices = new int[numberOfShoes];
+
+                        for (int i = 0; i < numberOfShoes; i++) {
+                            System.out.print("Enter the name of shoe " + (i + 1) + ": ");
+                            newShoes[i] = x.nextLine();
+
+                            System.out.print("Enter the price for " + newShoes[i] + ": ");
+                            newPrices[i] = x.nextInt();
+                            x.nextLine(); 
+                        }
+
+                        brandShoesList.add(newShoes);
+                        brandPricesList.add(newPrices);
+
+                        System.out.println("Shoes added to the brand " + newBrand + ":");
+                        for (int i = 0; i < newShoes.length; i++) {
+                            System.out.println((i + 1) + " > " + newShoes[i] + " - PHP " + newPrices[i]);
+                        }
+                    }
+
+                    System.out.println("Do you want to add another brand? (YES/NO)");
+                    String addAnotherBrand = x.next();
+                    if (!addAnotherBrand.equalsIgnoreCase("YES")) {
+                        break; 
+                    }
+                }
+            } else if (choiceuser == 4) {
+                System.out.println("REMOVE BRANDS SHOES");
+                for (int i = 0; i < Brands.length; i++) {
+                    System.out.println((i + 1) + " > " + Brands[i]);
+                }
+                System.out.print("Enter the brand number you want to remove: ");
+                int removeBrandIndex = x.nextInt();
+                if (removeBrandIndex > 0 && removeBrandIndex <= Brands.length) {
+                    String[] updatedBrands = new String[Brands.length - 1];
+                    ArrayList<String[]> updatedShoesList = new ArrayList<>();
+                    ArrayList<int[]> updatedPricesList = new ArrayList<>();
+
+                    for (int i = 0, j = 0; i < Brands.length; i++) {
+                        if (i != removeBrandIndex - 1) {
+                            updatedBrands[j] = Brands[i];
+                            updatedShoesList.add(brandShoesList.get(i));
+                            updatedPricesList.add(brandPricesList.get(i));
+                            j++;
+                        }
+                    }
+
+                    Brands = updatedBrands;
+                    brandShoesList = updatedShoesList;
+                    brandPricesList = updatedPricesList;
+
+                    System.out.println("Brand removed successfully!");
+                } else {
+                    System.out.println("Invalid brand number.");
+                }
+            } else if (choiceuser == 5) {
+                System.out.println("Exiting the system...");
+                break;
+            } else {
+                System.out.println("Invalid choice!");
+            }
+        }
+    }
+}
